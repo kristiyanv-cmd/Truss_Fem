@@ -36,9 +36,9 @@ def local_K_matrix(E, A, node_pos, con_mat):
         k_axial = (E[i] * A[i]) / L[i]
 
         K_local[i] = k_axial * np.array([[1, 0, -1, 0],
-                                         [0, 0, 0, 0],
-                                         [-1, 0, 1, 0],
-                                         [0, 0, 0, 0]])
+                                        [0, 0, 0, 0],
+                                        [-1, 0, 1, 0],
+                                        [0, 0, 0, 0]])
 
     return K_local
 
