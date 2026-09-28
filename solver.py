@@ -1,47 +1,49 @@
 import numpy as np
 
 def dof(node, direction):
-    """
-    Calculates the row number which corresponds to the degree of freedom for a given node and direction.    
-    """
+    """Global row index for a given node and direction (0 = x, 1 = y)."""
+    if direction not in (0, 1):
+        raise ValueError("Direction must be 0 (x) or 1 (y).")
+    
     return 2 * node + direction
 
-def solve_truss(K, n_nodes, forces=None, displacements=None):
+def solve_truss(K, forces=None, BC=None):
     """
-    K             : (2n x 2n) global stiffness matrix
-    n_nodes       : number of nodes
-    forces        : {(node, dir): value}   applied loads
-    displacements : {(node, dir): value}   prescribed displacements
-                    (0.0 for a fixed support)
-    Returns u (full displacement vector), F (full force vector incl. reactions).
+    K      : (2n x 2n) global stiffness matrix
+    forces : {(node, dir): value}   applied loads
+    BC     : {(node, dir): value}   prescribed displacements
+                (0.0 for a fixed support)
+
+    Returns u : full displacement vector (length 2n).
     """
     forces = forces or {}
-    displacements = displacements or {}
-    n_dof = 2 * n_nodes
+    BC = BC or {}
+    n_dof = K.shape[0]
 
-    # Full force vector from sparse input
+    # Build the full force vector from the sparse input
     F = np.zeros(n_dof)
     for (node, d), value in forces.items():
-        F[dof(node, d)] += value          # += so multiple loads on one DOF add up
+        F[dof(node, d)] += value
 
-    # Full displacement vector with known values filled in
-    u = np.zeros(n_dof)
+    # Full displacement vector with the known values filled in
+    u_nonzero_known = np.zeros(n_dof)   # This assumes either zero or a known displacement.
     constrained = []
-    for (node, d), value in displacements.items():
+    for (node, d), value in BC.items(): 
         i = dof(node, d)
-        u[i] = value
+        u_nonzero_known[i] = value
         constrained.append(i)
-    constrained = np.array(sorted(set(constrained)), dtype=int)
+    constrained = np.array(constrained, dtype=int)
 
-    free = np.setdiff1d(np.arange(n_dof), constrained)
+    # Move the known-displacement terms to the right-hand side
+    F_mod = F - K @ u_nonzero_known
 
-    # Partitioned solve
-    K_ff = K[np.ix_(free, free)]
-    K_fc = K[np.ix_(free, constrained)]
-    rhs = F[free] - K_fc @ u[constrained]
-    u[free] = np.linalg.solve(K_ff, rhs)
+    # Replace the constrained equations by "1 * u_i = prescribed value"
+    K_mod = K.astype(float)          # copy, so the original K is untouched
+    K_mod[constrained, :] = 0
+    K_mod[:, constrained] = 0
+    K_mod[constrained, constrained] = 1
+    F_mod[constrained] = u_nonzero_known[constrained]
 
-    # Reactions at constrained DOFs
-    F[constrained] = K[constrained, :] @ u
-
-    return u, F
+    # One ordinary solve on the full-size system
+    u = np.linalg.solve(K_mod, F_mod)
+    return u
