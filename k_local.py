@@ -9,6 +9,7 @@ def element_length(node_pos, con_mat):
     """
 
     element_lengths = np.zeros(con_mat.shape[0])
+    element_lengths = np.zeros(con_mat.shape[0])
 
     for i in range(con_mat.shape[0]):
         node1 = con_mat[i, 0]     #The connectivity matrix only has two columns and always starts with number 0. the rows indicate how many elements we have.
