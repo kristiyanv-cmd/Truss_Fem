@@ -8,7 +8,7 @@ def element_length(node_pos, con_mat):
     element_lengths: array of lengths for each element
     """
 
-    element_lengths = np.zeros(con_mat.shape[0])
+    
     element_lengths = np.zeros(con_mat.shape[0])
 
     for i in range(con_mat.shape[0]):
@@ -25,11 +25,24 @@ def element_length(node_pos, con_mat):
     return element_lengths
 
 
-def local_K_matrix(E, A, node_pos, con_mat):
+def local_K_matrices(E, A, node_pos, con_mat):
+    """
+    Calculate the local stiffness matrices for each element in a 2D truss structure.
     
-    L = element_length(node_pos, con_mat)
+    INPUTS:
+    E: array of Young's modulus for each element
+    A: array of cross-sectional areas for each element
+    node_pos: array of nodal coordinates
+    con_mat: connectivity matrix
+    
+    OUTPUTS:
+    K_local: array of local stiffness matrices for each element
+    
+    """
+    
+    L = element_length(node_pos, con_mat) # Get the element lengths for each element
 
-    K_local = np.zeros((con_mat.shape[0], 4, 4))
+    K_local = np.zeros((con_mat.shape[0], 4, 4)) # Initialize a 0 array 
 
     for i in range(con_mat.shape[0]):
         
@@ -43,10 +56,10 @@ def local_K_matrix(E, A, node_pos, con_mat):
     return K_local
 
 
-# element_modulus= np.array([210e9, 210e9, 210e9])  # Young's modulus for each element in Pascals
-# element_area= np.array([0.02, 0.01, 0.01])  # Cross-sectional area for each element in square meters
-# node_positions = np.array([[0, 0], [1, 0], [1, 1]])  # Nodal coordinates
-# connectivity_matrix = np.array([[0, 1], [0, 2], [1, 2]])  # Element connectivity matrix
+element_modulus= np.array([210e9, 210e9, 210e9])  # Young's modulus for each element in Pascals
+element_area= np.array([0.02, 0.01, 0.01])  # Cross-sectional area for each element in square meters
+node_positions = np.array([[0, 0], [1, 0], [1, 1]])  # Nodal coordinates
+connectivity_matrix = np.array([[0, 1], [0, 2], [1, 2]])  # Element connectivity matrix
 
-# print("Element Lengths:", element_length(node_positions, connectivity_matrix))
-# print("Local Stiffness Matrices:\n", local_K_matrix(element_modulus, element_area, node_positions, connectivity_matrix))
+print("Element Lengths:", element_length(node_positions, connectivity_matrix))
+print("Local Stiffness Matrices:\n", local_K_matrices(element_modulus, element_area, node_positions, connectivity_matrix))
