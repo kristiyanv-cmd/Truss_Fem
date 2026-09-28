@@ -1,0 +1,4 @@
+NodePosX,NodePosY,NodeForceX,NodeForceY,BCX,BCY,DisplacementX,DisplacementY,NodeConnectionA,NodeConnectionB,ElementArea,ElementModulus
+0,3,1,0,1,1,0,0,1,2,30,200000
+1,2,0,0,0,0,0,0,0,0,0,0
+2,5,4,0,1,1,0,0,0,0,0,0
