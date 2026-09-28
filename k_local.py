@@ -25,7 +25,7 @@ def local_K_matrix(E, A):
     Make a local stiffness matrix for a 1D truss. 
     """
 
-    L = def element_length(node_positions, connectivity_matrix)    
+    L = element_length(node_positions, connectivity_matrix)    
     k_axial = (E*A)/L
     K_local = k_axial * np.array([[1, -1], [-1, 1]], dtype=float)
     
