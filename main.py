@@ -24,7 +24,7 @@ class FEModel:
         self.K = assemble_global_K(self.E, self.A, self.NodePos, self.Element)
         self.u, self.Reactions = solve_truss(self.K, self.NodeForces, self.BC, self.displacements)
         # print("Displacements:", self.u)
-        self.NodePos2 = self.NodePos + self.u
+        self.NodePos2 = self.NodePos + self.u * 20
 
     def post_process(self):
         self.element_results, self.node_results = post_process(
@@ -103,7 +103,7 @@ def StressPlotter(NodePos2, ElementJoints, stress):
 
 #def force_BC_formatter()
 
-data = DataReader("verification1.csv")
+data = DataReader("verification3.csv")
 FEM = FEModel(data[0], data[1], data[2], data[3], data[4], data[5], data[6])
 FEM.solve()
 FEM.post_process()

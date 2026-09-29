@@ -11,4 +11,7 @@ ElementArea, ElementModulus - element cross-section area and Elastic ElementModu
 
 An example set-up can be seen in verification1.csv
 
-It outputs the maximum stress and strain found in the system, and a plot showing the displacement
+It outputs the all element stresses and strains, as well as nodal displacements and reaction forces
+It also shows 2 plots: 
+    deformed versus initial structure (displacement multiplied by 20 for visual clarity)
+    deformed structure with a stress heat map
