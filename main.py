@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from solver import solve_truss
 from k_local import element_length
 from assemble_global_K import assemble_global_K
+from post_proc import post_process
 
 
 class FEModel:
@@ -24,9 +25,11 @@ class FEModel:
         self.u, self.Reactions = solve_truss(self.K, self.NodeForces, self.BC, self.displacements)
         print("Displacements:", self.u)
         self.NodePos2 = self.NodePos + self.u * 100000000000
-    
-    #def post_process(self):
-    
+
+    def post_process(self):
+        self.element_results, self.node_results = post_process(
+            self.E, self.A, self.NodePos, self.Element, self.u, self.R)
+
 
 def DataReader(filename):
     #reads the data from a CSV file. Drops missing values, forces int for indices.
