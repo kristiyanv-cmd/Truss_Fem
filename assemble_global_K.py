@@ -47,20 +47,6 @@ def assemble_global_K(E, A, node_pos, con_mat):
         
     return K_global    
     
-<<<<<<< HEAD
-#element_modulus= np.array([210e9, 210e9, 210e9])  # Young's modulus for each element in Pascals
-#element_area= np.array([0.02, 0.01, 0.01])  # Cross-sectional area for each element in square meters
-
-#node_positions = np.array([[0, 0], [1, 0], [1, 1]])  # Nodal coordinates
-#node_positions_simple = np.array([[0, 0], [1, 0]])  # Nodal coordinates
-
-#connectivity_matrix = np.array([[0, 1], [0, 2], [1, 2]])  # Element connectivity matrix
-#connectivity_matrix_simple = np.array([[0, 1]])  # Element connectivity matrix
-
-#print("Element Lengths:", element_length(node_positions_simple, connectivity_matrix_simple))
-#print("Local Stiffness Matrices:\n", local_K_matrices(element_modulus, element_area, node_positions, connectivity_matrix_simple))
-#print("Global Stiffness Matrix:\n", assemble_global_K(element_modulus, element_area, node_positions_simple, connectivity_matrix_simple))
-=======
 # element_modulus= np.array([210e9, 210e9, 210e9])  # Young's modulus for each element in Pascals
 # element_area= np.array([0.02, 0.01, 0.01])  # Cross-sectional area for each element in square meters
 # node_positions = np.array([[0, 0], [1, 0], [1, 1]])  # Nodal coordinates
@@ -69,4 +55,3 @@ def assemble_global_K(E, A, node_pos, con_mat):
 # print("Element Lengths:", element_length(node_positions, connectivity_matrix))
 # print("Local Stiffness Matrices:\n", local_K_matrices(element_modulus, element_area, node_positions, connectivity_matrix))
 # print("Global Stiffness Matrix:\n", assemble_global_K(element_modulus, element_area, node_positions, connectivity_matrix))
->>>>>>> b5f06a24aa84575a904cf36f4b21cec2437642ff
