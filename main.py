@@ -7,8 +7,6 @@ from k_local import element_length
 from assemble_global_K import assemble_global_K
 
 
-#for now no clue how to utilize classes prolerly
-
 class FEModel:
 
     def __init__(self, NodePos, NodeForces, BC, displacements, ElementJoints, E, A):
@@ -25,7 +23,7 @@ class FEModel:
     
     def solve(self):
         self.K = assemble_global_K(self.E, self.A, self.NodePos, self.Element)
-        self.u = solve_truss(self.K, self.NodeForces, self.BC)
+        self.u = solve_truss(self.K, self.NodeForces, self.BC, self.displacements)
     
     #def post_process(self):
     
