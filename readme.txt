@@ -3,7 +3,7 @@ This code solves displacements of truss structures
 It requires an input csv file, that requires following inputs
 
 NodePosX,NodePosY - individual node positions [float][mm]
-NodeForceX,NodeForceY - applied forces on the node in X and Y direction [float][k]
+NodeForceX,NodeForceY - applied forces on the node in X and Y direction [float][kN]
 BCX,BCY - node constraints in X and Y direction [Bool] (1 means constrained)
 DisplacementX,DisplacementY - displacement of a node in X or Y [float][mm]
 NodeConnectionA, NodeConnectionB - element connections between nodes [int]
