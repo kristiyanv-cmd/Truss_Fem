@@ -13,17 +13,17 @@ class FEModel:
         self.NodePos= NodePos
         print("NodePos:", NodePos)
         self.NodeForces = NodeForces
-        print("NodeForces:", NodeForces)
         self.BC = BC
         self.displacements = displacements
         self.Element = ElementJoints
-        print("ElementJoints:", ElementJoints)
         self.E = E
         self.A = A
     
     def solve(self):
         self.K = assemble_global_K(self.E, self.A, self.NodePos, self.Element)
-        self.u = solve_truss(self.K, self.NodeForces, self.BC, self.displacements)
+        self.u, self.Reactions = solve_truss(self.K, self.NodeForces, self.BC, self.displacements)
+        print("Displacements:", self.u)
+        self.NodePos2 = self.NodePos + self.u * 100000000000
     
     #def post_process(self):
     
@@ -54,7 +54,7 @@ def Plotter(NodePos, ElementJoints, NodePos2=None):
         node2 = element[1]
         x_values = [NodePos[node1][0], NodePos[node2][0]]
         y_values = [NodePos[node1][1], NodePos[node2][1]]
-        plt.plot(x_values, y_values, 'b-o')
+        plt.plot(x_values, y_values, 'g--',linewidth=2)
 
     if NodePos2 is not None:
         for element in ElementJoints:
@@ -62,20 +62,22 @@ def Plotter(NodePos, ElementJoints, NodePos2=None):
             node2 = element[1]
             x_values = [NodePos2[node1][0], NodePos2[node2][0]]
             y_values = [NodePos2[node1][1], NodePos2[node2][1]]
-            plt.plot(x_values, y_values, 'r--')
+            plt.plot(x_values, y_values, 'r-o')
 
     plt.xlabel('X Position')
+    
     plt.ylabel('Y Position')
     plt.title('Truss Structure')
     plt.grid()
+    plt.legend()
     plt.axis('equal')
     plt.show()
 
 #def force_BC_formatter()
 
-data = DataReader("verification3.csv")
+data = DataReader("verification1.csv")
 FEM = FEModel(data[0], data[1], data[2], data[3], data[4], data[5], data[6])
 FEM.solve()
-Plotter(data[0], data[4])
+Plotter(data[0], data[4],FEM.NodePos2)
 #FEM = FEModel(DataReader("verification1.csv"))
 print(data)
