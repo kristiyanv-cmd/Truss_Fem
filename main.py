@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from solver import solve_truss
 from k_local import element_length
 from assemble_global_K import assemble_global_K
+from post_proc import post_process
 
 
 class FEModel:
@@ -23,10 +24,12 @@ class FEModel:
     
     def solve(self):
         self.K = assemble_global_K(self.E, self.A, self.NodePos, self.Element)
-        self.u = solve_truss(self.K, self.NodeForces, self.BC, self.displacements)
-    
-    #def post_process(self):
-    
+        self.u, self.R = solve_truss(self.K, self.NodeForces, self.BC, self.displacements)
+
+    def post_process(self):
+        self.element_results, self.node_results = post_process(
+            self.E, self.A, self.NodePos, self.Element, self.u, self.R)
+
 
 def DataReader(filename):
     #reads the data from a CSV file. Drops missing values, forces int for indices.
@@ -76,6 +79,7 @@ def Plotter(NodePos, ElementJoints, NodePos2=None):
 data = DataReader("verification3.csv")
 FEM = FEModel(data[0], data[1], data[2], data[3], data[4], data[5], data[6])
 FEM.solve()
+FEM.post_process()
 Plotter(data[0], data[4])
 #FEM = FEModel(DataReader("verification1.csv"))
 print(data)
