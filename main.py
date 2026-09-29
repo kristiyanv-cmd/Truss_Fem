@@ -24,7 +24,7 @@ class FEModel:
         self.K = assemble_global_K(self.E, self.A, self.NodePos, self.Element)
         self.u, self.Reactions = solve_truss(self.K, self.NodeForces, self.BC, self.displacements)
         print("Displacements:", self.u)
-        self.NodePos2 = self.NodePos + self.u * 100000000000
+        self.NodePos2 = self.NodePos + self.u
 
     def post_process(self):
         self.element_results, self.node_results = post_process(
@@ -68,7 +68,7 @@ def Plotter(NodePos, ElementJoints, NodePos2=None):
             plt.plot(x_values, y_values, 'r-o')
 
     plt.xlabel('X Position')
-    
+    plt.plot
     plt.ylabel('Y Position')
     plt.title('Truss Structure')
     plt.grid()
