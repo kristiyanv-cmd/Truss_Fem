@@ -7,7 +7,7 @@ NodeForceX,NodeForceY - applied forces on the node in X and Y direction [float][
 BCX,BCY - node constraints in X and Y direction [Bool] (1 means constrained)
 DisplacementX,DisplacementY - displacement of a node in X or Y [float][mm]
 NodeConnectionA, NodeConnectionB - element connections between nodes [int]
-ElementArea, ElementModulus - element cross-section area and Elastic ElementModulus
+ElementArea, ElementModulus - element cross-section area and Elastic ElementModulus [mm2], [Pa]
 
 An example set-up can be seen in verification1.csv
 
