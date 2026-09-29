@@ -66,14 +66,14 @@ def post_process(E, A, node_pos, con_mat, u, R):
         'NodeA': con_mat[:, 0] + 1,
         'NodeB': con_mat[:, 1] + 1,
         'Strain [-]': strain,
-        'Stress [Pa]': stress,
+        'Stress [MPa]': stress,
         'Force [N]': force,
     })
 
     node_results = pd.DataFrame({
         'Node': np.arange(1, len(node_pos) + 1),
-        'u_x [m]': u[:, 0],
-        'u_y [m]': u[:, 1],
+        'u_x [mm]': u[:, 0],
+        'u_y [mm]': u[:, 1],
         'R_x [N]': R[:, 0],
         'R_y [N]': R[:, 1],
     })
