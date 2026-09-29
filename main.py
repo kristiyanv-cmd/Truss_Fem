@@ -7,7 +7,7 @@ import k_local as local_M
 import assemble_global_K as global_M
 import transformation_matrix as trans_M
 '''
-for now no clue how to utilize classes prolerly
+for now no clue how to utilize classes properly
 
 class FEModel:
 
