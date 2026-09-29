@@ -55,3 +55,5 @@ def assemble_global_K(E, A, node_pos, con_mat):
 # print("Element Lengths:", element_length(node_positions, connectivity_matrix))
 # print("Local Stiffness Matrices:\n", local_K_matrices(element_modulus, element_area, node_positions, connectivity_matrix))
 # print("Global Stiffness Matrix:\n", assemble_global_K(element_modulus, element_area, node_positions, connectivity_matrix))
+
+
