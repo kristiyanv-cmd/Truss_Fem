@@ -68,7 +68,6 @@ def Plotter(NodePos, ElementJoints, NodePos2=None):
             plt.plot(x_values, y_values, 'r-o')
 
     plt.xlabel('X Position')
-    plt.plot
     plt.ylabel('Y Position')
     plt.title('Truss Structure')
     plt.grid()
