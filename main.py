@@ -3,9 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 import solver
-import k_local
-import assemble_global_K
-import transformation_matrix
+import k_local as local_M
+import assemble_global_K as global_M
+import transformation_matrix as trans_M
 '''
 for now no clue how to utilize classes prolerly
 
